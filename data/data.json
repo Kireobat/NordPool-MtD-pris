@@ -1,5 +1,67 @@
 {
-    "prisTabell" : [
-        
-    ]
+  "prisTabell": [
+    {
+        "date": "01/12/2022",
+        "oslo": 358.14,
+        "kristiansand": 358.14,
+        "bergen": 358.14,
+        "molde": 350.44,
+        "trondheim": 350.44,
+        "tromso": 175.91
+    },
+    {
+        "date": "02/12/2022",
+        "oslo": 333.82,
+        "kristiansand": 333.82,
+        "bergen": 333.82,
+        "molde": 287.17,
+        "trondheim": 287.17,
+        "tromso": 84.10
+    },
+    {
+        "date": "03/12/2022",
+        "oslo": 275.60,
+        "kristiansand": 275.60,
+        "bergen": 275.60,
+        "molde": 275.60,
+        "trondheim": 275.60,
+        "tromso": 76.658
+    },
+    {
+        "date": "04/12/2022",
+        "oslo": 277.23,
+        "kristiansand": 277.23,
+        "bergen": 277.23,
+        "molde": 277.69,
+        "trondheim": 277.69,
+        "tromso": 73.12
+    },
+    {
+        "date": "05/12/2022",
+        "oslo": 296.91,
+        "kristiansand": 296.91,
+        "bergen": 296.91,
+        "molde": 212.14,
+        "trondheim": 212.14,
+        "tromso": 66.02
+    },
+    {
+        "date": "06/12/2022",
+        "oslo": 353.43,
+        "kristiansand": 353.43,
+        "bergen": 353.43,
+        "molde": 195.19,
+        "trondheim": 195.19,
+        "tromso": 63.06
+    },
+    {
+      "date": "07/12/2022",
+      "oslo": 336.2,
+      "kristiansand": 336.2,
+      "bergen": 336.2,
+      "molde": 205.19,
+      "trondheim": 205.19,
+      "tromso": 105.97
+    }
+  ]
 }

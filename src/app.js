@@ -15,13 +15,24 @@ const minute = second * 60;
 const hour = minute * 60;
 
 // how often to update prices
-const interval = 6*hour;
+const interval = 24*hour;
 
 // Data
 
 const data = fileStorage.loadData();
 
-// Delay function
+// Get date
+
+let today = new Date();
+let dd = String(today.getDate()).padStart(2, '0');
+let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+let yyyy = today.getFullYear();
+
+// current date
+today = dd + '/' + mm + '/' + yyyy;
+
+// test date
+console.log(today);
 
 //delay
 const delay = async (ms) => new Promise(res => setTimeout(res, ms));
@@ -32,13 +43,28 @@ const fetchPrice = priceFetcher.main();
 
 //fetchPrice.then((result) => { console.log("result", result)})
 
-async function updatePrices(){
+async function updatePricesAndWriteToJSON(){
     while (true){
-    await fetchPrice.then((result) => { console.log("result", result)})
+    await fetchPrice.then((result) => { 
+        console.log("result", result)
+
+        let dataToWrite = {
+            "date": today,
+            "oslo": result[0],
+            "kristiansand": result[1],
+            "bergen": result[2],
+            "molde": result[3],
+            "trondheim": result[4],
+            "tromso": result[5]
+        }
+        data.prisTabell.push(dataToWrite)
+        fileStorage.storeData(data)
+    })
+    console.log("Data stored");
+
     await delay(interval);
     }
 }
-
 // Create express app
 
 const dataPath = path.join(__dirname, '../data');
@@ -56,15 +82,9 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicPath));
 app.use(express.urlencoded({ extended: true }));
 
-// Variables
-
-// Functions
-
-console.log("data test",data)
-
 // Update prices
 
-updatePrices();
+updatePricesAndWriteToJSON();
 
 
 // Routes

@@ -5,21 +5,12 @@ const path = require('path');
 
 // Variables
 
-const dataPath = ''
+const priceDataPath = '../data/prices.json'
 const pricesList = []
 
 const url = 'https://www.nordpoolgroup.com/en/Market-data1/Dayahead/Area-Prices/NO/Daily/?view=table'
 
-/*
-let kristiansandPriceToday = document.querySelector('td[class="sortable"]:nth-of-type(3)').innerText;
-let bergenPriceToday = document.querySelector('td[class="sortable"]:nth-of-type(4)').innerText;
-let moldePriceToday = document.querySelector('td[class="sortable"]:nth-of-type(5)').innerText;
-let trondheimPriceToday = document.querySelector('td[class="sortable"]:nth-of-type(6)').innerText;
-let tromsoPriceToday = document.querySelector('td[class="sortable"]:nth-of-type(7)').innerText;
-*/
-// Velger riktig rute for å hente ut pris
-// document.querySelector('td[class="sortable"]:nth-of-type(x)').innerText
-
+// delay function used for testing
 function delay(time) {
     return new Promise(function(resolve) { 
         setTimeout(resolve, time)
@@ -33,27 +24,11 @@ async function getPrice() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
     await page.goto(url);
+
+    // wait for page to load
     await delay(3000);
-    await page.screenshot({path: 'example.png'});
 
-
-    /*
-    osloPriceTodayText = await page.$("td[class='sortable']:nth-of-type(2)");
-    osloPriceToday = await (await osloPriceTodayText.getProperty('innerText')).jsonValue();
-    */
-    /*
-    const value = await page.evaluate(
-        () => document.querySelectorAll("td[class='sortable']")[1].innerText
-    );
-    */
-
-    /*
-    let scrapedData = await page.evaluate(() => {
-        Array.from(document.querySelectorAll("td[class='sortable']")[0]).map((element => ({
-            price: element.innerText
-        })))
-    });
-    */
+    // selectors
 
     const osloSelector = 'td[class="sortable"]:nth-of-type(2)'
     const kristiansandSelector = 'td[class="sortable"]:nth-of-type(3)'
@@ -62,19 +37,23 @@ async function getPrice() {
     const trondheimSelector = 'td[class="sortable"]:nth-of-type(6)'
     const tromsoSelector = 'td[class="sortable"]:nth-of-type(7)'
 
+    // list of selectors
+    
+    const selectorList = [osloSelector, kristiansandSelector, bergenSelector, moldeSelector, trondheimSelector, tromsoSelector]
 
-    const osloPriceToday = await page.$eval(osloSelector, (element) => {
-        return element.textContent;
-    })
+    for (let i = 0; i < selectorList.length; i++) {
+        const price = await page.$eval(selectorList[i], (element) => {
+            return element.textContent;
+        })
+        pricesList.push(price)
+    };
 
-    const kristiansandPriceToday = await page.$eval(kristiansandSelector, (element) => {
-        return element.textContent;
-    })
-
-    pricesList.push(osloPriceToday);
-    pricesList.push(kristiansandPriceToday);
+    // log the prices
+    
     console.log("scraped data",pricesList);
-    //console.log("oslopris",value);
+
+    // close the browser
+    
     await page.close();
     await browser.close();
     return pricesList;

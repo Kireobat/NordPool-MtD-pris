@@ -5,5 +5,22 @@
     "hbs": "^4.2.0",
     "path": "^0.12.7",
     "puppeteer": "^19.3.0"
-  }
+  },
+  "name": "nordpool-mtd-pris",
+  "description": "Get the current average price of this month",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kireobat/NordPool-MtD-pris.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kireobat/NordPool-MtD-pris/issues"
+  },
+  "homepage": "https://github.com/Kireobat/NordPool-MtD-pris#readme"
 }

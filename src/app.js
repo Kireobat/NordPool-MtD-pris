@@ -9,15 +9,35 @@ const fileStorage = require("./fileStorage")
 const priceFetcher = require("./priceFetcher")
 
 
+// Constants in ms
+const second = 1000;
+const minute = second * 60;
+const hour = minute * 60;
+
+// how often to update prices
+const interval = 6*hour;
+
 // Data
 
 const data = fileStorage.loadData();
+
+// Delay function
+
+//delay
+const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 
 // Fetch price
 
 const fetchPrice = priceFetcher.main();
 
-fetchPrice.then((result) => { console.log("result", result)})
+//fetchPrice.then((result) => { console.log("result", result)})
+
+async function updatePrices(){
+    while (true){
+    await fetchPrice.then((result) => { console.log("result", result)})
+    await delay(interval);
+    }
+}
 
 // Create express app
 
@@ -41,6 +61,11 @@ app.use(express.urlencoded({ extended: true }));
 // Functions
 
 console.log("data test",data)
+
+// Update prices
+
+updatePrices();
+
 
 // Routes
 

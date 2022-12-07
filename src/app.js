@@ -13,9 +13,11 @@ const priceFetcher = require("./priceFetcher")
 
 const data = fileStorage.loadData();
 
-//
+// Fetch price
 
 const fetchPrice = priceFetcher.main();
+
+fetchPrice.then((result) => { console.log("result", result)})
 
 // Create express app
 
@@ -39,7 +41,6 @@ app.use(express.urlencoded({ extended: true }));
 // Functions
 
 console.log("data test",data)
-console.log("fetchPrice test",fetchPrice)
 
 // Routes
 

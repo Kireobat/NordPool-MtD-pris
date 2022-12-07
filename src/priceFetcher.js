@@ -11,7 +11,7 @@ const pricesList = []
 let convertionRate = 0
 
 const NordPoolURL = 'https://www.nordpoolgroup.com/en/Market-data1/Dayahead/Area-Prices/NO/Daily/?view=table'
-const EuroURL = 'https://investor.dn.no/#!/Valuta/Y24/Euro';
+const EuroURL = 'https://investor.dn.no/#!/Valuta/Y24/Euro'
 // delay function used for testing
 function delay(time) {
     return new Promise(function(resolve) { 
@@ -43,6 +43,8 @@ async function getPrice() {
     
     const selectorList = [osloSelector, kristiansandSelector, bergenSelector, moldeSelector, trondheimSelector, tromsoSelector]
 
+
+    // loop through the selectors and get the price and add it to the pricesList
     for (let i = 0; i < selectorList.length; i++) {
         const priceString = await page.$eval(selectorList[i], (element) => {
             return element.textContent;
@@ -69,13 +71,20 @@ async function EUROtoNOK(){
     const page = await browser.newPage();
     await page.goto(EuroURL);
 
+
+    // what to search for
     const convertionRateSelector = 'div[class="price ng-binding"]'
 
+    // use the selector to get the convertion rate
     const convertionRateString = await page.$eval(convertionRateSelector, (element) => {
         return element.innerText;
     })
 
+    // switch the "," to "."
     convertionRate = convertionRateString.replace(",", ".");
+
+    // convert to float
+    convertionRate = parseFloat(convertionRate);
     console.log("convertionRate", convertionRate);
 
     await page.close();
@@ -107,8 +116,11 @@ async function convertToNOKperKWH(){
     console.log("converton test", pricesList);
 }
 
-
+// run the functions
 async function main() {
+    
+    // takes the time it takes to run the functions
+    console.time('Execution time');
     await getPrice();
     await EUROtoNOK();
     await convertToNOKperKWH();
@@ -122,7 +134,8 @@ async function main() {
     console.log("Øre per KWt i Tromsø", pricesList[5]);
     console.log("-------------------------------")
 
-
+    // takes the time it takes to run the functions
+    console.timeEnd('Execution time');
 }
 
 main();

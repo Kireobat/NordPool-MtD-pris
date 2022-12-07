@@ -28,7 +28,7 @@ async function getPrice() {
     await page.goto(NordPoolURL);
 
     // wait for page to load
-    await delay(3000);
+    await delay(1000);
 
     // selectors
 
@@ -136,6 +136,7 @@ async function main() {
 
     // takes the time it takes to run the functions
     console.timeEnd('Execution time');
+    return pricesList;
 }
 
-main();
+exports.main = main;

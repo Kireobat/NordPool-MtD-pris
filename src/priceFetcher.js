@@ -10,7 +10,6 @@ const pricesList = []
 
 const url = 'https://www.nordpoolgroup.com/en/Market-data1/Dayahead/Area-Prices/NO/Daily/?view=table'
 
-let osloPriceToday = ""
 /*
 let kristiansandPriceToday = document.querySelector('td[class="sortable"]:nth-of-type(3)').innerText;
 let bergenPriceToday = document.querySelector('td[class="sortable"]:nth-of-type(4)').innerText;
@@ -57,12 +56,24 @@ async function getPrice() {
     */
 
     const osloSelector = 'td[class="sortable"]:nth-of-type(2)'
+    const kristiansandSelector = 'td[class="sortable"]:nth-of-type(3)'
+    const bergenSelector = 'td[class="sortable"]:nth-of-type(4)'
+    const moldeSelector = 'td[class="sortable"]:nth-of-type(5)'
+    const trondheimSelector = 'td[class="sortable"]:nth-of-type(6)'
+    const tromsoSelector = 'td[class="sortable"]:nth-of-type(7)'
 
-    const scrapedData = await page.$eval(osloSelector, (element) => {
+
+    const osloPriceToday = await page.$eval(osloSelector, (element) => {
         return element.textContent;
     })
-    //pricesList.push(value);
-    console.log("scraped data",scrapedData);
+
+    const kristiansandPriceToday = await page.$eval(kristiansandSelector, (element) => {
+        return element.textContent;
+    })
+
+    pricesList.push(osloPriceToday);
+    pricesList.push(kristiansandPriceToday);
+    console.log("scraped data",pricesList);
     //console.log("oslopris",value);
     await page.close();
     await browser.close();

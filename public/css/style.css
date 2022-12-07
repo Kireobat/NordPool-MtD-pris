@@ -1,92 +1,48 @@
-html {
-    height: 100vh;
-    width: 100vw;
-    overflow-y: hidden;
-}
-body {
-    margin: 0;
-    background-color: rgb(23, 37, 37);
-}
-p {
-    color: white;
-    font-size: 1em;
-    font-family: 'Bahnschrift', sans-serif;
-    display: inline;
-}
-
-h1{
-    color: white;
-    font-family: 'Bahnschrift', sans-serif;
-}
-h2{
-    color: white;
-    font-family: 'Bahnschrift', sans-serif;
-}
-h3{
-    color: white;
-    font-family: 'Bahnschrift', sans-serif;
-}
-
-.textBox {
-    padding: 0.5em;
-    border-radius: 0.5em;
-    margin: 0.3em;
-}
-
-.form {
+.parent {
     text-align: center;
-}
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    border-color: blueviolet;
+    }
+    
+    .div1 { grid-area: 1 / 1 / 2 / 2; }
+    .div2 { grid-area: 1 / 2 / 2 / 3; }
+    .div3 { grid-area: 1 / 3 / 2 / 4; }
+    .div4 { grid-area: 2 / 1 / 3 / 2; }
+    .div5 { grid-area: 2 / 2 / 3 / 3; }
+    .div6 { grid-area: 2 / 3 / 3 / 4; }
 
-.loginBar {
-    text-align: center;
-    margin-top: 15em;
-}
-
-.adminBtn {
-    background-color: rgb(0, 79, 79);
-    display: inline-block;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    height: 3em;
-    width: 3em;
-    margin: 0.5em;
+.parent > div {
     position: relative;
-    transition: all 0.5s;
-}
-.adminBtn:hover {
-    background-color: rgb(0, 102, 102);
-    scale: 1.1;
-}
-
-.adminBtn > i {
-    color: white;
-    position: absolute;
-    right: 15%;
-    top: 50%;
-    margin: auto;
-}
-
-
-.btnHolder {
     text-align: center;
 }
-.btnHolder > div {
-    display: inline-block;
-    padding: 0.5em;
-    border-radius: 0.5em;
-    background-color: rgb(0, 79, 79);
-    height: 3em;
-    width: 3em;
-    transition: all 0.5s;
-    margin-left: 2em;
-    margin-right: 2em;
-}
-.btnHolder > div > i {
-    color: white;
-    padding-top: 1em;
+    
+.parent > div > div {
+    position: absolute;
+    color: rgb(0, 0, 0);
+    font-size: 2em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    text-align: center;
+    }
+
+
+.parent > div > img {
+    width: 300px;
 }
 
-.btnHolder > div:hover {
-    background-color: rgb(0, 102, 102);
+.openMenuBtn {
+    padding: 2em;
+    background-color: rgb(255, 0, 0);
+    border-radius: 15%;
+    height: 1em;
+    width: 1em;
+    transition: all 0.5s ease;
+}
+.openMenuBtn:hover {
+    background-color: rgb(255, 0, 0);
     scale: 1.1;
 }

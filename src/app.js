@@ -84,7 +84,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Update prices
 
-updatePricesAndWriteToJSON();
+//updatePricesAndWriteToJSON();
 
 
 // Routes

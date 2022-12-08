@@ -62,6 +62,15 @@
       "molde": 205.19,
       "trondheim": 205.19,
       "tromso": 105.97
+    },
+    {
+      "date": "08/12/2022",
+      "oslo": 397.48,
+      "kristiansand": 397.48,
+      "bergen": 397.48,
+      "molde": 281.99,
+      "trondheim": 281.99,
+      "tromso": 91.24
     }
   ]
 }

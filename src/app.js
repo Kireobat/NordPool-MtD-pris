@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
-const exp = require('constants');
 const fileStorage = require("./fileStorage")
 const priceFetcher = require("./priceFetcher")
 
@@ -40,8 +39,6 @@ const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 // Fetch price
 
 const fetchPrice = priceFetcher.main();
-
-//fetchPrice.then((result) => { console.log("result", result)})
 
 async function updatePricesAndWriteToJSON(){
     while (true){
@@ -84,14 +81,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Update prices
 
-//updatePricesAndWriteToJSON();
+updatePricesAndWriteToJSON();
 
 
 // Routes
 
 root = (req, res) => {
     res.render('index.hbs', {
-        title: 'Home',
+        title: 'Spotpris.eu',
     });
 }
 

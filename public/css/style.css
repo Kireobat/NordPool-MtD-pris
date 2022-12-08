@@ -1,11 +1,35 @@
-.parent {
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+body{
+    position: relative;
     text-align: center;
-    display: grid;
+}
+
+.bg {
+    background-image: linear-gradient(0deg, rgba(0,0,0,0.75),rgba(0,0,0,0.75)), url("../img/Background.jpg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parent {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    text-align: center;
+    display: none;
+    padding: 1em;
+    background-color: #1b99aad8;
+    border-radius: 2em;
+    width: 80%;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    border-color: blueviolet;
     }
     
     .div1 { grid-area: 1 / 1 / 2 / 2; }
@@ -18,31 +42,63 @@
 .parent > div {
     position: relative;
     text-align: center;
+    transition: scale 0.3s ease-in-out;
+}
+
+.parent > div:hover {
+    scale: 1.05;
 }
     
 .parent > div > div {
     position: absolute;
+    padding: 0.5em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: rgb(0, 0, 0);
+    background-color: #dddbcb73;
     font-size: 2em;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     text-align: center;
-    }
-
+    border-radius: 1em;
+}
 
 .parent > div > img {
-    width: 300px;
+    border-radius: 1em;
+    width: 350px;
+}
+
+p {
+    font-size: 0.6em;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 100;
+    text-align: center;
 }
 
 .openMenuBtn {
+    position: relative;
+    text-align: center;
     padding: 2em;
-    background-color: rgb(255, 0, 0);
+    background-color: #DDDBCB;
     border-radius: 15%;
-    height: 1em;
-    width: 1em;
+    height: 2em;
+    width: 2em;
     transition: all 0.5s ease;
 }
 .openMenuBtn:hover {
-    background-color: rgb(255, 0, 0);
     scale: 1.1;
+}
+.openMenuIcon {
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.openMenuHolder {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

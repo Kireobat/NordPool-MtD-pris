@@ -2,7 +2,6 @@
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
-const { Console } = require('console');
 
 // Variables
 

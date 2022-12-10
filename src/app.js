@@ -81,13 +81,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // Update prices
 
-updatePricesAndWriteToJSON();
+//updatePricesAndWriteToJSON();
 
 
 // Routes
 
 root = (req, res) => {
-    res.render('index.hbs', {
+    res.render('newIndex.hbs', {
         title: 'Spotpris.eu',
     });
 }

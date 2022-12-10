@@ -1,0 +1,96 @@
+/* Variables */
+:root {
+    --bg-color: #ACB0BD;
+    --accent-color: #416165;
+    --accent-color-dark: #0B3948;
+    --text-color: #FFFFFF;
+}
+
+
+
+/* General */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+}
+
+.bg{
+    background-color: var(--bg-color);
+    width: 100vw;
+    height: 100vh;
+}
+
+
+
+/* Topbar */
+.topbarLogo {
+    width: 3em;
+    margin: 1em;
+}
+
+.topbarBg {
+    background-color: var(--accent-color);
+}
+
+.topbarGridParent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .topbarGridItem1 { grid-area: 1 / 1 / 2 / 2; }
+    .topbarGridItem2 { grid-area: 1 / 2 / 2 / 3; }
+    .topbarGridItem3 { grid-area: 1 / 3 / 2 / 4; }
+
+.buttonsFlex {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+    .buttonsFlex > div {
+        margin: 0.5em;
+        background-color: var(--accent-color-dark);
+        color: var(--text-color);
+    }
+
+/* Open Menu Button */
+.openMenuHolder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+    
+.openMenuBtn {
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    font-size: 2em;
+    padding: 1em;
+    border-radius: 0.5em;
+}
+
+
+/* Location Menu */
+
+.locationSelectorParent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    }
+    
+    .location01 { grid-area: 1 / 1 / 2 / 2; }
+    .location02 { grid-area: 1 / 2 / 2 / 3; }
+    .location03 { grid-area: 1 / 3 / 2 / 4; }
+    .location04 { grid-area: 2 / 1 / 3 / 2; }
+    .location05 { grid-area: 2 / 2 / 3 / 3; }
+    .location06 { grid-area: 2 / 3 / 3 / 4; }
+    

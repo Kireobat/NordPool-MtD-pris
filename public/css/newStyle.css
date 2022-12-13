@@ -116,15 +116,29 @@ html, body {
     .location06 { grid-area: 2 / 3 / 3 / 4; }
 
 .locationSelectorParent > div {
+    position: relative;
     background-color: var(--accent-color);
     color: var(--text-color);
     font-size: 1.75em;
+    border-radius: 0.5em;
     text-align: center;
 }
 .locationSelectorParent > div > img {
     opacity: 0;
     width: 300px;
     border-radius: 0.5em;
+}
+.locationSelectorParent > div:hover > img {
+    opacity: 1;
+    transition: opacity 0.5s;
+}
+.locationSelectorParent > div > h3 {
+    opacity: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Inter', sans-serif;
 }
 
 /* Text */

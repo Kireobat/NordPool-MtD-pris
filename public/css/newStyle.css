@@ -51,7 +51,8 @@ html, body {
         grid-area: 1 / 1 / 2 / 2;
         text-align: center;
     }
-    .topbarGridItem2 { grid-area: 1 / 2 / 2 / 3; }
+    .topbarGridItem2 { grid-area: 1 / 2 / 2 / 3;
+        text-align: center; }
     .topbarGridItem3 { grid-area: 1 / 3 / 2 / 4; }
 
 /* ButtonsFlexbox */
@@ -123,16 +124,16 @@ html, body {
     border-radius: 0.5em;
     text-align: center;
 }
-.locationSelectorParent > div > img {
+.locationSelectorParent > div > a > img {
     opacity: 0;
     width: 300px;
     border-radius: 0.5em;
 }
-.locationSelectorParent > div:hover > img {
+.locationSelectorParent > div:hover > a > img {
     opacity: 1;
     transition: opacity 0.5s;
 }
-.locationSelectorParent > div > h3 {
+.locationSelectorParent > div > a > h3 {
     opacity: 1;
     position: absolute;
     top: 50%;
@@ -147,4 +148,75 @@ h3 {
     color: var(--text-color);
     font-family: 'Inter', sans-serif;
 }
+
+h1 {
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+}
+
+
+/* City Template */
+
+.cityParent {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+    height: 100vh;
+    }
     
+    .cityHeader { grid-area: 1 / 1 / 2 / 10; }
+    .cityMain { 
+        grid-area: 2 / 4 / 4 / 7;
+        background-color: var(--accent-color);
+        border-radius: 2em;
+        padding: 1em;
+    }
+        .topTextMain {
+            margin-left: 2em;
+            text-align: left;
+            font-size: 1.5em;
+        }
+        .midTextMain {
+            text-align: center;
+            font-size: 6em;
+        }
+        .botTextMain {
+            text-align: right;
+            font-size: 1.5em;
+            margin-right: 2em;
+        }
+    .cityInfo1 { 
+        grid-area: 4 / 3 / 6 / 5; 
+        background-color: var(--accent-color);
+        border-radius: 1em;
+        padding: 1em;
+        margin: 2em;
+    }
+    .cityInfoSpace { grid-area: 4 / 5 / 6 / 6; }
+    .cityInfo2 {
+        grid-area: 4 / 6 / 6 / 8;
+        background-color: var(--accent-color);
+        border-radius: 1em;
+        padding: 1em;
+        margin: 2em;
+        
+    }
+        .topTextInfo {
+            text-align: left;
+            font-size: 1.5em;
+        }
+
+        .midTextInfo {
+            text-align: center;
+            font-size: 5em;
+        }
+    .cityAds1 {
+        grid-area: 2 / 1 / 6 / 3; 
+         background-color: var(--accent-color-dark);
+        text-align: center;}
+    .cityAds2 { 
+        grid-area: 2 / 8 / 6 / 10; 
+        background-color: var(--accent-color-dark);
+        text-align: center;}  

@@ -38,7 +38,7 @@ const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 
 // Fetch price
 
-const fetchPrice = priceFetcher.main();
+//const fetchPrice = priceFetcher.main();
 
 async function updatePricesAndWriteToJSON(){
     while (true){
@@ -91,8 +91,17 @@ root = (req, res) => {
         title: 'Spotpris.eu',
     });
 }
+city = (req, res) => {
+    res.render('cityPrice.hbs', {
+        title: 'Spotpris.eu | Bergen',
+        city: 'Bergen',
+        spotpris: '551,93',
+        okning: '13,8%',
+    });
+}
 
 
 app.get('/', root);
+app.get('/city', city);
 
 app.listen(port, () => {console.log("Server started on http://localhost:" + port)});

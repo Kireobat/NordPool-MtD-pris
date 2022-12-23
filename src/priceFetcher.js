@@ -22,7 +22,7 @@ function delay(time) {
 // Fetches the price from Nordpool
 
 async function getPrice() {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(NordPoolURL);
 
@@ -66,7 +66,7 @@ async function getPrice() {
 // Fetches the Euro to NOK convertion rate from DN.no
 
 async function EUROtoNOK(){
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ args: ['--no-sandbox']});
     const page = await browser.newPage();
     await page.goto(EuroURL);
 

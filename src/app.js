@@ -38,7 +38,7 @@ const delay = async (ms) => new Promise(res => setTimeout(res, ms));
 
 // Fetch price
 
-//const fetchPrice = priceFetcher.main();
+const fetchPrice = priceFetcher.main();
 
 async function updatePricesAndWriteToJSON(){
     while (true){
@@ -81,7 +81,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Update prices
 
-//updatePricesAndWriteToJSON();
+updatePricesAndWriteToJSON();
 
 
 // Routes

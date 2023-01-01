@@ -26,13 +26,10 @@ const data = fileStorage.loadData();
 
 // Get date
 
-let today = new Date();
-let dd = String(today.getDate()).padStart(2, '0');
-let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-let yyyy = today.getFullYear();
+let currentDate = new Date();
 
 // current date
-today = dd + '/' + mm + '/' + yyyy;
+today = currentDate;
 
 // test date
 console.log(today);
@@ -53,7 +50,7 @@ let averageTromso = 0;
 async function updatePricesAndWriteToJSON(){
     while (true){
 
-    today = dd + '/' + mm + '/' + yyyy;
+    today = currentDate;
     console.log(" Date: " + today);
     console.log("Interval: " + interval + "ms")
 
@@ -104,9 +101,78 @@ async function updatePricesAndWriteToJSON(){
     console.log("Average Trondheim: " + averageTrondheim);
     console.log("Average Tromso: " + averageTromso);
 
+    // get increase since last month
+
+    getIncrease();
+
     await delay(interval);
     }
 }
+
+// Get increase since last month
+
+getIncrease = () => {
+    let currentDate = new Date();
+    console.log(currentDate);
+    let previousMonth = new Date(
+      currentDate.getFullYear(), 
+      currentDate.getMonth()-1, 
+      currentDate.getDate() -1
+      );
+    console.log(previousMonth);
+
+    let previousMonthData = [];
+    for (let i = 0; i < data.prisTabell.length; i++) {
+      let itemDate = new Date(data.prisTabell[i].date);
+      if (itemDate.getMonth() === previousMonth.getMonth()) {
+        previousMonthData.push(data.prisTabell[i]);
+      }
+    }
+
+    console.log(previousMonthData);
+
+    let previousAverageOslo = 0;
+    let previousAverageKristiansand = 0;
+    let previousAverageBergen = 0;
+    let previousAverageMolde = 0;
+    let previousAverageTrondheim = 0;
+    let previousAverageTromso = 0;
+
+    for (i=0; i < previousMonthData.length; i++) {
+      previousAverageOslo += previousMonthData[i].oslo;
+      previousAverageKristiansand += previousMonthData[i].kristiansand;
+      previousAverageBergen += previousMonthData[i].bergen;
+      previousAverageMolde += previousMonthData[i].molde;
+      previousAverageTrondheim += previousMonthData[i].trondheim;
+      previousAverageTromso += previousMonthData[i].tromso;
+    }
+    previousAverageOslo = Math.round(((previousAverageOslo * mva) / previousMonthData.length) *100) / 100;
+    previousAverageKristiansand = Math.round(((previousAverageKristiansand * mva) / previousMonthData.length) *100) / 100;
+    previousAverageBergen = Math.round(((previousAverageBergen * mva) / previousMonthData.length) *100) /100;
+    previousAverageMolde = Math.round(((previousAverageMolde * mva) / previousMonthData.length) *100) /100;
+    previousAverageTrondheim = Math.round(((previousAverageTrondheim * mva) / previousMonthData.length) *100) /100;
+    previousAverageTromso = Math.round(((previousAverageTromso * mva) / previousMonthData.length) *100) /100;
+
+    console.log("Previous average Oslo: " + previousAverageOslo);
+    console.log("average Oslo: " + averageOslo);
+
+    increaseOslo = Math.round(((averageOslo - previousAverageOslo) / previousAverageOslo) * 100);
+    increaseKristiansand = Math.round(((averageKristiansand - previousAverageKristiansand) / previousAverageKristiansand) * 100);
+    increaseBergen = Math.round(((averageBergen - previousAverageBergen) / previousAverageBergen) * 100);
+    increaseMolde = Math.round(((averageMolde - previousAverageMolde) / previousAverageMolde) * 100);
+    increaseTrondheim = Math.round(((averageTrondheim - previousAverageTrondheim) / previousAverageTrondheim) * 100);
+    increaseTromso = Math.round(((averageTromso - previousAverageTromso) / previousAverageTromso) * 100);
+  
+    console.log("Increase Oslo: " + increaseOslo);
+    console.log("Increase Kristiansand: " + increaseKristiansand);
+    console.log("Increase Bergen: " + increaseBergen);
+    console.log("Increase Molde: " + increaseMolde);
+    console.log("Increase Trondheim: " + increaseTrondheim);
+    console.log("Increase Tromso: " + increaseTromso);
+  }
+
+
+
 // Create express app
 
 const dataPath = path.join(__dirname, '../data');
@@ -124,7 +190,7 @@ hbs.registerPartials(partialsPath);
 app.use(express.static(publicPath));
 app.use(express.urlencoded({ extended: true }));
 
-// Update prices
+// Update prices (comment out when testing)
 
 updatePricesAndWriteToJSON();
 
@@ -140,8 +206,9 @@ city = (req, res) => {
     res.render('cityPrice.hbs', {
         title: 'Spotpris.eu | Bergen',
         city: 'Bergen',
+        lastMonth: 'november',
         spotpris: averageBergen,
-        okning: '13,8%',
+        okning: increaseBergen,
     });
 }
 

@@ -61,13 +61,14 @@ html, body {
     justify-content: space-evenly;
 }
 
-    .buttonsFlex > div {
+    .buttonsFlex > a {
         padding-left: 0.5em;
         padding-right: 0.5em;
         margin: 0.5em;
         background-color: var(--accent-color-dark);
         color: var(--text-color);
         border-radius: 0.5em;
+        text-decoration: none;
     }
 
 

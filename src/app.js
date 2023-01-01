@@ -5,8 +5,14 @@ const path = require('path');
 const express = require('express');
 const hbs = require('hbs');
 const fileStorage = require("./fileStorage")
-const priceFetcher = require("./priceFetcher")
+const priceFetcher = require("./priceFetcher");
+const { abort } = require('process');
 
+/*
+---------------------------------------
+---------------Variables---------------
+---------------------------------------
+*/
 
 // medverdiavgift
 
@@ -26,10 +32,7 @@ const data = fileStorage.loadData();
 
 // Get date
 
-let currentDate = new Date();
-
-// current date
-today = currentDate;
+let today = new Date();
 
 // test date
 console.log(today);
@@ -46,12 +49,15 @@ let averageMolde = 0;
 let averageTrondheim = 0;
 let averageTromso = 0;
 
+// month 
+
+let month = "Januar"
+
 
 async function updatePricesAndWriteToJSON(){
     while (true){
-
-    today = currentDate;
-    console.log(" Date: " + today);
+    currentDate = new Date();
+    console.log(" Date: " + currentDate);
     console.log("Interval: " + interval + "ms")
 
     // Calling priceFetcher.main() to fetch prices
@@ -64,7 +70,7 @@ async function updatePricesAndWriteToJSON(){
         console.log("result", result)
 
         let dataToWrite = {
-            "date": today,
+            "date": currentDate,
             "oslo": result[0],
             "kristiansand": result[1],
             "bergen": result[2],
@@ -79,20 +85,34 @@ async function updatePricesAndWriteToJSON(){
 
     // calculate average prices
 
+    // add data from current month to an array
+    console.log(currentDate);
+
+    let currentMonthData = [];
     for (let i = 0; i < data.prisTabell.length; i++) {
-        averageOslo += data.prisTabell[i].oslo;
-        averageKristiansand += data.prisTabell[i].kristiansand;
-        averageBergen += data.prisTabell[i].bergen;
-        averageMolde += data.prisTabell[i].molde;
-        averageTrondheim += data.prisTabell[i].trondheim;
-        averageTromso += data.prisTabell[i].tromso;
+      let itemDate = new Date(data.prisTabell[i].date);
+      if (itemDate.getMonth() === currentDate.getMonth()) {
+        currentMonthData.push(data.prisTabell[i]);
+      }
     }
-    averageOslo = Math.round(((averageOslo * mva) / data.prisTabell.length) *100) / 100;
-    averageKristiansand = Math.round(((averageKristiansand * mva) / data.prisTabell.length) *100) / 100;
-    averageBergen = Math.round(((averageBergen * mva) / data.prisTabell.length) *100) /100;
-    averageMolde = Math.round(((averageMolde * mva) / data.prisTabell.length) *100) /100;
-    averageTrondheim = Math.round(((averageTrondheim * mva) / data.prisTabell.length) *100) /100;
-    averageTromso = Math.round(((averageTromso * mva) / data.prisTabell.length) *100) /100;
+
+    console.log("Current month",currentMonthData);
+
+
+    for (let i = 0; i < currentMonthData.length; i++) {
+        averageOslo += currentMonthData[i].oslo;
+        averageKristiansand += currentMonthData[i].kristiansand;
+        averageBergen += currentMonthData[i].bergen;
+        averageMolde += currentMonthData[i].molde;
+        averageTrondheim += currentMonthData[i].trondheim;
+        averageTromso += currentMonthData[i].tromso;
+    }
+    averageOslo = Math.round(((averageOslo * mva) / currentMonthData.length) *100) / 100;
+    averageKristiansand = Math.round(((averageKristiansand * mva) / currentMonthData.length) *100) / 100;
+    averageBergen = Math.round(((averageBergen * mva) / currentMonthData.length) *100) /100;
+    averageMolde = Math.round(((averageMolde * mva) / currentMonthData.length) *100) /100;
+    averageTrondheim = Math.round(((averageTrondheim * mva) / currentMonthData.length) *100) /100;
+    averageTromso = Math.round(((averageTromso * mva) / currentMonthData.length) *100) /100;
     
     console.log("Average Oslo: " + averageOslo);
     console.log("Average Kristiansand: " + averageKristiansand);
@@ -104,6 +124,8 @@ async function updatePricesAndWriteToJSON(){
     // get increase since last month
 
     getIncrease();
+
+    getMonthName();
 
     await delay(interval);
     }
@@ -117,7 +139,7 @@ getIncrease = () => {
     let previousMonth = new Date(
       currentDate.getFullYear(), 
       currentDate.getMonth()-1, 
-      currentDate.getDate() -1
+      currentDate.getDate()
       );
     console.log(previousMonth);
 
@@ -129,7 +151,7 @@ getIncrease = () => {
       }
     }
 
-    console.log(previousMonthData);
+    console.log("Previous month",previousMonthData);
 
     let previousAverageOslo = 0;
     let previousAverageKristiansand = 0;
@@ -171,7 +193,15 @@ getIncrease = () => {
     console.log("Increase Tromso: " + increaseTromso);
   }
 
+// Get month name
 
+getMonthName = () => {
+    let date = new Date();
+    date.setMonth(date.getMonth() - 1);
+    month = date.toLocaleString('nb', { month: 'long' });
+    console.log(month);
+    return month;
+}
 
 // Create express app
 
@@ -206,15 +236,28 @@ city = (req, res) => {
     res.render('cityPrice.hbs', {
         title: 'Spotpris.eu | Bergen',
         city: 'Bergen',
-        lastMonth: 'november',
+        lastMonth: month,
         spotpris: averageBergen,
         okning: increaseBergen,
+    });
+}
+about = (req, res) => {
+    res.render('about.hbs', {
+        title: 'Spotpris.eu | Om oss',
+    }); 
+}
+contact = (req, res) => {
+    res.render('contact.hbs', {
+        title: 'Spotpris.eu | Kontakt oss',
     });
 }
 
 
 app.get('/', root);
 app.get('/city', city);
+app.get('/about', about);
+app.get('/contact', contact);
+
 
 // makes data available @ /data/data.json to client
 

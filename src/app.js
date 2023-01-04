@@ -262,13 +262,17 @@ app.get('/contact', contact);
 // makes data available @ /data/data.json to client
 
 app.get('/data/data.json', function (req, res) {
-    fs.readFile(path.join(__dirname, 'public', 'data', req.params.filename), function (err, data) {
-      if (err) {
-        res.status(500).send('Error reading file');
-      } else {
-        res.send(data);
-      }
-    });
+  fs.readFile(path.join(__dirname, 'public', 'data', 'data.json'), function (err, data) {
+    if (err) {
+      res.status(500).send('Error reading file');
+    } else {
+      res.header('Access-Control-Allow-Origin', 'https://spotpris.eu');
+      res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+      res.header('Access-Control-Allow-Headers', 'Content-Type');
+      res.send(data);
+    }
   });
+});
+
 
 app.listen(port, () => {console.log("Server started on http://localhost:" + port)});

@@ -266,7 +266,7 @@ app.get('/data/data.json', function (req, res) {
     if (err) {
       res.status(500).send('Error reading file');
     } else {
-      res.header('Access-Control-Allow-Origin', 'https://spotpris.eu');
+      res.header('Access-Control-Allow-Origin', '*');
       res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
       res.header('Access-Control-Allow-Headers', 'Content-Type');
       res.send(data);

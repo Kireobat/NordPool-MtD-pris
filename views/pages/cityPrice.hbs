@@ -3,6 +3,7 @@
 <head>
     {{>headerInfo}}
     <script src="/script/graph.js" defer></script>
+    <script src="/script/calculator.js" defer></script>
     <title>{{title}}</title>
 </head>
 <body>
@@ -25,14 +26,13 @@
             <h3 class="topTextInfo">Graf</h3>
         </div>
         <div class="cityAds1">
-            <h3>annonse</h3>
         </div>
         <div class="cityAds2">
-            <h3>annonse</h3>
         </div>
-        <div class="cityCalculator"><i class="fa-solid fa-calculator fa-6x"></i></div>
+        <div class="cityCalculator" id="open-calculator"><i class="fa-solid fa-calculator fa-6x"></i></div>
 
     </div>
+    {{>calculator}}
     </div>
 </body>
 </html>
